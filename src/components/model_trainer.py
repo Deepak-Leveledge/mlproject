@@ -50,12 +50,49 @@ class ModelTrainer:
             ## defieing the list of model
             models={
                 "Random Forest":RandomForestRegressor(),
-                "Decision Tree":GradientBoostingRegressor(),
-                "Gradient Boosting":DecisionTreeRegressor(),
+                "Decision Tree":DecisionTreeRegressor(),
+                "Gradient Boosting":GradientBoostingRegressor(),
                 "Linear Regression":LinearRegression(),
                 "XGBRegressor":XGBRFRegressor(),
                 "CatBoosting Regressor":CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor":AdaBoostRegressor()
+            }
+
+
+            params={
+                "Random Forest":{
+                    "n_estimators":[8,16,32,64,128,256]
+                    # "max_depth":
+                },
+
+                "Decision Tree":{
+                    "criterion":["squared_error","friedman_mse"],
+                    # "max_depth":[8,16,32,64,128,256]
+                },
+                "Gradient Boosting":{
+                    "learning_rate":[0.1,0.01,0.05],    
+                    "subsample":[0.6,0.7,0.9],
+                    "n_estimators":[8,16,32,64,128,256]
+                },
+                "Linear Regression":{},
+                "K-Neighbors Regressor":{
+                    "n_neighbors":[5,7,9,11]    
+                },
+                "XGBRegressor":{
+                    "learning_rate":[0.1,0.01,0.05],    
+                    "n_estimators":[8,16,32,64,128,256]
+                },
+                "CatBoosting Regressor":{
+                    "depth":[6,8,10],
+                    "learning_rate":[0.1,0.01,0.05],    
+                    "iterations":[30,50,100]
+                },
+                "AdaBoost Regressor":{
+                    "learning_rate":[0.1,0.01,0.05],    
+                    "n_estimators":[8,16,32,64,128,256]
+                }
+
+
             }
 
             model_report:dict=evaluate_models(X_train=X_train
@@ -63,6 +100,7 @@ class ModelTrainer:
                                             ,models=models
                                             ,X_test=X_test
                                             ,y_test=y_test
+                                            ,params=params
                                             )
             
             best_model_score= max(sorted(model_report.values()))
@@ -76,7 +114,7 @@ class ModelTrainer:
             if best_model_score<0.6:
                 raise Exception("No Best Model Found")
             
-            logging.info(f"Best found model on both training and testing dataset")
+            logging.info(f"Best found model on both training and testing dataset {best_model_name} with r2 score of {best_model_score}")
 
             save_object(
                 file_path=self.model_trainer_config.trained_model_file_path,
