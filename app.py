@@ -6,6 +6,10 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from src.pipeline.predict_pipeline import CustomData,PredictPipeline
 
+# Load your model and preprocessor
+model = pickle.load(open('artifacts/model.pkl', 'rb'))
+preprocessor = pickle.load(open('artifacts/preprocessor.pkl', 'rb'))
+
 application = Flask(__name__)
 
 app=application
