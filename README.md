@@ -70,8 +70,7 @@ Model Development: Jupyter, scikit-learn
 Visualization: Matplotlib, Seaborn
 
 🌐 Live Demo
-🚀 Try it now: Student Performance Predictor on Render (Insert live link if deployed)
-
+🚀 Try it now: Student Performance Predictor on Render https://mlproject-pojk.onrender.com/
 🔄 Flexibility
 This system is built to predict math scores, but you can easily modify the target variable to predict:
 
